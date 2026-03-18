@@ -1,14 +1,5 @@
 import { Document, Schema, model, models } from "mongoose";
-import mongoose from "mongoose";
-
-declare module 'mongoose'{
-    interface SchemaOptions{
-        slug?: string;
-        slugPaddingSize?: number;
-    }
-}
-const slug = require('mongoose-slug-generator') as any;
-mongoose.plugin(slug);
+import slugify from "slugify";
 
 export interface IEvent extends Document {
     title: string;
@@ -39,8 +30,8 @@ const EventSchema = new Schema<IEvent>({
     slug: {
         type: String,
         unique: true,
-        slug: 'title',
-        slugPaddingSize: 2,
+        trim: true,
+        lowercase: true
     },
     description: {
         type: String,
@@ -112,6 +103,14 @@ const EventSchema = new Schema<IEvent>({
         }
     },
 }, {timestamps: true})
+
+EventSchema.pre('save', async function() {
+    const event = this as IEvent;
+    if(event.isModified('title') || event.isNew) {
+        const baseSlug = slugify(event.title, {lower: true});
+        event.slug = `${baseSlug}-${event._id.toString().slice(-6)}`
+    }
+})
 
 EventSchema.index({date: 1, mode: 1});
 
