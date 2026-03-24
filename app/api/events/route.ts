@@ -27,6 +27,8 @@ export const POST = async(req:NextRequest) => {
         })
 
         event.image = (uploadResult as {secure_url: string}).secure_url;
+        event.tags = JSON.parse(formData.get('tags') as string);
+        event.agenda = JSON.parse(formData.get('agenda') as string);
 
         const createdEvent = await Event.create(event);
         return NextResponse.json({message: 'Event created successfully', event: createdEvent}, {status: 201});

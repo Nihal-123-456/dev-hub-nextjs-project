@@ -1,5 +1,4 @@
 import { model, Schema, Document, Types, models } from "mongoose";
-import Event from "./event.model";
 
 export interface IBooking extends Document {
     eventId: Types.ObjectId;

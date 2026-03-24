@@ -175,7 +175,7 @@
     }
   }
 
-  #event-card {
+  .event-card {
     @apply flex flex-col gap-3;
 
     .poster {
