@@ -1,5 +1,4 @@
 import EventDetails from "@/components/EventDetails";
-import { cacheLife } from "next/cache";
 import { Suspense } from "react";
 
 const Page = async ({ params }: { params: Promise<{ slug: string }> }) => {

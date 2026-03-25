@@ -10,6 +10,10 @@ const Page = async () => {
   cacheLife("hours");
 
   const response = await fetch(`${base_url}/api/events/`);
+  if (!response.ok) {
+    throw new Error(`Failed to fetch events: ${response.status}`);
+  }
+
   const { events } = await response.json();
   return (
     <section>
