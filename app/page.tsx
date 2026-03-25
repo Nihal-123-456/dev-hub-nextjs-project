@@ -9,12 +9,12 @@ const Page = async () => {
   "use cache";
   cacheLife("hours");
 
-  // const response = await fetch(`${base_url}/api/events/`);
-  // if (!response.ok) {
-  //   throw new Error(`Failed to fetch events: ${response.status}`);
-  // }
+  const response = await fetch(`${base_url}/api/events/`);
+  if (!response.ok) {
+    throw new Error(`Failed to fetch events: ${response.status}`);
+  }
 
-  // const { events } = await response.json();
+  const { events } = await response.json();
   return (
     <section>
       <h1 className="text-center">
@@ -28,13 +28,13 @@ const Page = async () => {
 
       <div className="mt-20 space-y-7">
         <h3>Featured Events</h3>
-        {/* <ul className="events">
+        <ul className="events">
           {events.map((item: IEvent) => (
             <li key={item.title}>
               <EventCard {...item} />
             </li>
           ))}
-        </ul> */}
+        </ul>
       </div>
     </section>
   );
