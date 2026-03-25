@@ -7,6 +7,7 @@ import { cacheLife } from "next/cache";
 export const getSimilarEvents = async (slug: string) => {
   "use cache";
   cacheLife("hours");
+
   try {
     await connectDb();
 
